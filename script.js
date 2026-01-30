@@ -175,20 +175,7 @@ function adjustFontSize(element, baseSize, callback) {
     let size = parseFloat(baseSize) || 8;
     element.style.fontSize = size + unit;
 
-    // Maximize screen usage
-    const maxH = window.innerHeight * 0.80;
-    const maxW = window.innerWidth * 0.80;
-
     requestAnimationFrame(() => {
-        const minSize = 2; 
-        let iterations = 0;
-        
-        while (size > minSize && iterations < 300) {
-            if (element.scrollHeight <= maxH && element.scrollWidth <= maxW) break;
-            size -= 0.1;
-            element.style.fontSize = size + unit;
-            iterations++;
-        }
         if (callback) callback();
     });
 }
@@ -228,7 +215,7 @@ function displayMessage(index) {
         
         const words = messageContainer.querySelectorAll('.word');
         
-        adjustFontSize(messageContainer, config.fontSize || '12vh', () => {
+        adjustFontSize(messageContainer, config.fontSize || '11vh', () => {
             messageContainer.classList.remove('fade-out');
             words.forEach((word, i) => setTimeout(() => word.classList.add('visible'), i * 500));
         });

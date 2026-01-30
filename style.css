@@ -81,7 +81,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: pulse 4s infinite ease-in-out;
+  animation: pulse 1s infinite ease-in-out;
 }
 
 .heart-container.enlarged .heart {
@@ -136,8 +136,8 @@ body {
   transition: opacity 1s ease-in-out, font-size 0.3s ease;
   
   /* Maximize space for text */
-  width: 80vw;
-  max-height: 80vh;
+  width: 100vw;
+  max-height: 100vh;
   
   display: flex;
   flex-direction: column;
@@ -161,7 +161,7 @@ body {
 
 .message p {
   margin: 2px 0;
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .message.compact {
@@ -217,7 +217,7 @@ body {
   font-family: "Dancing Script", cursive !important;
   opacity: 1 !important;
   display: block !important;
-  white-space: normal !important;
+  white-space: nowrap !important;
   margin-bottom: 0.5vh !important;
 }
 
