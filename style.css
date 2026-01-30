@@ -168,6 +168,38 @@ body {
   line-height: 1;
 }
 
+/* --- Navigation Controls --- */
+.controls-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  gap: 10px;
+}
+
+.controls-container:hover {
+  opacity: 1;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 5px;
+  backdrop-filter: blur(5px);
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
 /* --- Text Colors & Effects --- */
 .white-text,
 .white-text p,
@@ -177,7 +209,8 @@ body {
 }
 
 .content .message .red-title,
-.content .message .red-title p {
+.content .message .red-title p,
+.content .message .red-title .word {
   color: #ff0000 !important;
   font-weight: bold !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;

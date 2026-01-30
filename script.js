@@ -44,12 +44,7 @@ const messagesConfig = [
         <p>Your table for</p>
         <p>Two?</p>
         `,
-        textColor: '#ffffff',
-        fontSize: '8vh',
         color: '#ff3366',
-        enlarged: false,
-        compact: false,
-        duration: 60000
     },
     {
         text: `
@@ -60,12 +55,7 @@ const messagesConfig = [
         <p>1 Shared Dessert Plate</p>
         <p class="red-title">$90 for Two</p>
         `,
-        textColor: '#ffffff',
-        fontSize: '8vh',
         color: 'rgba(255, 105, 180, 0.5)',
-        enlarged: false,
-        compact: false,
-        duration: 60000
     },
     {
         text: `
@@ -75,12 +65,9 @@ const messagesConfig = [
         <p>Chicken Poppers w. Sriracha Aioli</p>
         <p>& Cauli-bites w. Hot Honey.</p>
         `,
-        textColor: '#ffffff',
-        fontSize: '8vh',
         color: 'rgba(255, 0, 0, 0.5)',
         enlarged: true,
         compact: true,
-        duration: 60000
     },
     {
         text: `
@@ -91,12 +78,9 @@ const messagesConfig = [
         <p>3 Salmon Fillet.</p>
         <p>4 Pumpkin, Spinach, Feta Filo.</p>
         `,
-        textColor: '#ffffff',
-        fontSize: '8vh',
         color: 'rgba(170, 0, 255, 0.5)',
         enlarged: true,
         compact: true,
-        duration: 60000
     },
     {
         text: `
@@ -105,12 +89,9 @@ const messagesConfig = [
         <p>Chocolate Cheesecake, Apple Shortcake,</p>
         <p>Berries, Cream & Berry Sorbet</p>
         `,
-        textColor: '#ffffff',
-        fontSize: '8vh',
         color: 'rgba(0, 102, 255, 0.5)',
         enlarged: true,
         compact: true,
-        duration: 60000
     },
     {
         text: `
@@ -121,12 +102,9 @@ const messagesConfig = [
         <p>For Your Table</p>
         <p>of Two!</p>
         `,
-        textColor: '#ffffff',
-        fontSize: '8vh',
         color: 'rgba(255, 20, 147, 0.5)',
         enlarged: true,
         compact: true,
-        duration: 60000
     },
     {
         text: `
@@ -138,12 +116,8 @@ const messagesConfig = [
         </div>
         <p>It's Only... $90 for TWO</p>
         `,
-        textColor: '#ffffff',
-        fontSize: '8vh',
         color: '#ff3366',
-        enlarged: false,
         compact: true,
-        duration: 60000
     }
 ];
 
@@ -153,6 +127,17 @@ const progressBar = document.querySelector('.progress-bar');
 const heartContainer = document.querySelector('.heart-container');
 const root = document.documentElement;
 let cycleTimeout;
+
+// --- Navigation Controls ---
+document.getElementById('prev-btn')?.addEventListener('click', () => {
+    currentMessageIndex = (currentMessageIndex - 1 + messagesConfig.length) % messagesConfig.length;
+    displayMessage(currentMessageIndex);
+});
+
+document.getElementById('next-btn')?.addEventListener('click', () => {
+    currentMessageIndex = (currentMessageIndex + 1) % messagesConfig.length;
+    displayMessage(currentMessageIndex);
+});
 
 function wrapWords(htmlString) {
     if (!htmlString) return '';
@@ -216,7 +201,7 @@ function displayMessage(index) {
 
     setTimeout(() => {
         const config = messagesConfig[index];
-        const duration = config.duration || 60000;
+        const duration = config.duration || 60000; // Default duration
 
         // Progress Bar
         const totalDuration = messagesConfig.reduce((sum, msg) => sum + (msg.duration || 60000), 0);
@@ -236,14 +221,14 @@ function displayMessage(index) {
         root.style.setProperty('--heart-color', config.color);
         heartContainer.classList.toggle('enlarged', config.enlarged);
         heartContainer.classList.toggle('hidden-heart', index !== 0);
-        messageContainer.classList.toggle('compact', config.compact);
-        messageContainer.classList.toggle('white-text', config.textColor === '#ffffff');
-        messageContainer.style.color = config.textColor || '';
+        messageContainer.classList.toggle('compact', !!config.compact);
+        messageContainer.classList.toggle('white-text', (config.textColor || '#ffffff') === '#ffffff');
+        messageContainer.style.color = config.textColor || '#ffffff';
         messageContainer.innerHTML = wrapWords(config.text);
         
         const words = messageContainer.querySelectorAll('.word');
         
-        adjustFontSize(messageContainer, config.fontSize || '8vh', () => {
+        adjustFontSize(messageContainer, config.fontSize || '12vh', () => {
             messageContainer.classList.remove('fade-out');
             words.forEach((word, i) => setTimeout(() => word.classList.add('visible'), i * 500));
         });
